@@ -16,15 +16,39 @@ export default function NovaTarefa() {
                 
             </View>
             <Text style={styles.nometarefa}>
-                    nome do texto
+                    Nome da Tarefa:
             </Text>
             <TextInput
-                    style={{borderWidth: 1, fontSize: 20 }}>
+                    style={{borderWidth: 1, fontSize: 20, backgroundColor: 'white', borderRadius: 10, borderColor: 'gray' }}>
                 </TextInput>
+
+            <Text style={styles.categoriatarefa}>Categoria da Tarefa:</Text>
+            <TextInput
+                    placeholder = ' Selecione a categoria                                                                                   🔽 '
+                    style={{borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 10, height: 30, borderColor: 'gray' }}>
+                </TextInput>
+            
+                <Text style={styles.destarefa}>
+                    Descrição da Tarefa:
+            </Text>
+            <TextInput
+                    placeholder = 'Value'
+                    style={{borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 10, color: 'gray', height: 80, padding: 20, borderColor: 'gray',
+                        alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                </TextInput>
+                <Text style={{
+                     marginTop: 15,
+                    marginLeft: 70,
+                    textAlign:'left'}}>
+                Date</Text>
+                    <TextInput
+                    placeholder = 'mm/dd/yyyy'
+                    style={{borderWidth: 2, fontSize: 14, backgroundColor: 'white', borderRadius: 10, height: 40, padding: 13, marginLeft: 15,
+                        alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                    </TextInput>
         </View>
     )
 }
-
 const styles = StyleSheet.create({
     cabecalho: {
         backgroundColor: 'blue',
@@ -55,9 +79,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 0
     },
-        nometarefa: {
-            marginTop: 10,
-        marginLeft: 3.5
-        }
-   
-})
+    nometarefa: {
+         marginTop: 15,
+        marginLeft: 4.5,
+        },
+    categoriatarefa: {
+        marginTop: 15,
+        marginLeft: 4.5,
+    },
+    destarefa: {
+        marginTop: 15,
+        marginLeft: 4.5,
+    },
+  })
