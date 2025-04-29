@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput} from "react-native";
+import { Picker } from '@react-native-picker/picker';
 
 export default function NovaTarefa() {
 
@@ -19,21 +19,21 @@ export default function NovaTarefa() {
                     Nome da Tarefa:
             </Text>
             <TextInput
-                    style={{borderWidth: 1, fontSize: 20, backgroundColor: 'white', borderRadius: 10, borderColor: 'gray' }}>
+                    style={{borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 10, borderColor: 'gray', height: 30}}>
                 </TextInput>
-
-            <Text style={styles.categoriatarefa}>Categoria da Tarefa:</Text>
-            <TextInput
-                    placeholder = ' Selecione a categoria                                                                                   🔽 '
-                    style={{borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 10, height: 30, borderColor: 'gray' }}>
-                </TextInput>
+            <Text style={styles.categoriatarefa}> Categoria Tarefa: </Text>
+            <Picker style={{borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 10, borderColor: 'gray', height: 30}}>
+            <Picker.Item label="Estudo" value="estudo" />
+            <Picker.Item label="Trabalho" value="jtrabalho" />
+            <Picker.Item label="Reunião" value="reunião"/>
+            </Picker>
             
                 <Text style={styles.destarefa}>
                     Descrição da Tarefa:
             </Text>
             <TextInput
                     placeholder = 'Value'
-                    style={{borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 10, color: 'gray', height: 80, padding: 20, borderColor: 'gray',
+                    style={{borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 10, color: 'gray', height: 80, padding: 15, borderColor: 'gray',
                         alignItems: 'center', justifyContent: 'center', flex: 1 }}>
                 </TextInput>
                 <Text style={{
@@ -81,11 +81,11 @@ const styles = StyleSheet.create({
     },
     nometarefa: {
          marginTop: 15,
-        marginLeft: 4.5,
+        marginLeft: 2.5,
         },
     categoriatarefa: {
-        marginTop: 15,
-        marginLeft: 4.5,
+        marginTop: 10,
+        marginLeft: 2.5,
     },
     destarefa: {
         marginTop: 15,
