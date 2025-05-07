@@ -31,42 +31,6 @@ export default function Home(){
                 data="24/04/2025"
                 categoria="reunião"
             />
-            <TarefaItem 
-                nome="Tarefa 3"
-                status="a cumprir"
-                data="24/04/2025"
-                categoria="reunião"
-            />
-            <TarefaItem 
-                nome="Tarefa 4"
-                status="concluido"
-                data="30/04/2025"
-                categoria="reunião"
-             />
-             <TarefaItem 
-                nome="Tarefa 5"
-                status="a cumprir"
-                data="26/05/2025"
-                categoria="reunião"
-            />
-            <TarefaItem 
-                nome="Tarefa 6"
-                status="concluido"
-                data="31/05/2025"
-                categoria="reunião"
-             />
-             <TarefaItem 
-                nome="Tarefa 7"
-                status="a cumprir"
-                data="13/06/2025"
-                categoria="reunião"
-            />
-            <TarefaItem 
-                nome="Tarefa 8"
-                status="concluido"
-                data="19/06/2025"
-                categoria="reunião"
-             />
             </ScrollView>
             <TouchableOpacity style={styles.botao} onPress={() => {navigation.navigate("NovaTarefa")}}>
                 
