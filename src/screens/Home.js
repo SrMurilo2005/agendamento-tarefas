@@ -1,10 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
-import TarefaItem from '../componentes/TarefaItem';
-import { useNavigation } from '@react-navigation/native';
+import {TarefaItem} from '../componentes/TarefaItem';
+import { getData } from '../storage/async-storage';
+import { useEffect, useState } from 'react';
 
 export default function Home(){
 
-    const navigation = useNavigation();
+    const [ tasks, setTasks ] = useState(null)
+
+    // Executa ao carregar a pagina
+    useEffect(async () => {
+        const data = await getData();
+        setTasks(data);
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -19,18 +26,18 @@ export default function Home(){
                 </TouchableOpacity>
             </View>
             <ScrollView style={styles.body}>
-            <TarefaItem 
-                nome="Tarefa 1"
-                status="a cumprir"
-                data="24/04/2025"
-                categoria="reunião"
-            />
-            <TarefaItem 
-                nome="Tarefa 2"
-                status="concluido"
-                data="24/04/2025"
-                categoria="reunião"
-            />
+                {
+                    tasks && tasks.map((item) => {
+                        return(
+                            <TarefaItem 
+                                nome={item.nome}
+                                status={item.status}
+                                data={item.data}
+                                categoria={item.categoria}
+                            />
+                        )
+                    })
+                }            
             </ScrollView>
             <TouchableOpacity style={styles.botao} onPress={() => {navigation.navigate("NovaTarefa")}}>
                 
