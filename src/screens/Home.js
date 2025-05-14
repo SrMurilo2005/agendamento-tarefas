@@ -2,8 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-nativ
 import {TarefaItem} from '../componentes/TarefaItem';
 import { getData } from '../storage/async-storage';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home(){
+
+    const navigation = useNavigation()
 
     const [ tasks, setTasks ] = useState(null)
 
