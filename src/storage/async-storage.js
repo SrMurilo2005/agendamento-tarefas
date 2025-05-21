@@ -18,7 +18,15 @@ const setData= async (value) => {
     await AsyncStorage.setItem(key, JSON.stringify(value));
 }
 
+const addData = async (task) => {
+    const data = await getData()
+    data.push(task)
+    await setData(data)
+}
+
+
 export {
     getData,
-    setData
+    setData,
+    addData
 }

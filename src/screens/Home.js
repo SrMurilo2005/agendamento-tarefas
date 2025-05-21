@@ -30,7 +30,7 @@ export default function Home(){
             </View>
             <ScrollView style={styles.body}>
                 {
-                    tasks && tasks.map((item) => {
+                    tasks != null && tasks.map((item) => {
                         return(
                             <TarefaItem 
                                 nome={item.nome}

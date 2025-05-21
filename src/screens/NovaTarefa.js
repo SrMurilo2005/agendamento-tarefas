@@ -1,11 +1,33 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from "react";
+import { addData } from "../storage/async-storage";
 
 
 export default function NovaTarefa() {
 
     const navigation = useNavigation();
+
+    const [nome, setNome] = useState('');
+    const [categoria, setCategoria] = useState('prova');
+    const [descricao, setDesc] = useState('');
+    const [data, setData] = useState('');
+    
+
+    const handlerSave = () => {
+        const tarefa = {
+            nome: nome,
+            categoria: categoria,
+            data: data,
+            descricao: descricao
+        }
+    
+        addData(tarefa)
+        navigation.goBack() 
+        alert("Voce completou seu cadastro")
+    }
+    
 
     return (
         <View>
@@ -23,7 +45,9 @@ export default function NovaTarefa() {
                 Nome da Tarefa:
             </Text>
             <TextInput
-                style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}>
+                style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}
+                value = {nome}
+                onChangeText= {texto => setNome(texto)}>   
             </TextInput>
             <Text style={styles.categoriatarefa}> Categoria Tarefa: </Text>
             <Picker style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}>
@@ -42,7 +66,9 @@ export default function NovaTarefa() {
                 style={{
                     borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 80, padding: 15, borderColor: 'gray',
                     alignItems: 'center', justifyContent: 'center'
-                }}>
+                }}
+                value = {descricao}
+                onChangeText= {texto => setDesc(texto)}>
             </TextInput>
             <Text style={{ marginTop: 15, marginLeft: 40, textAlign: 'left', color: 'purple' }}>
                 Date</Text>
@@ -51,13 +77,15 @@ export default function NovaTarefa() {
                 style={{
                     borderWidth: 2, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 40, padding: 13, marginLeft: 15,
                     alignItems: 'center', justifyContent: 'center', borderColor: 'purple'
-                }}>
+                }}
+                value = {data}
+                onChangeText= {texto => setData(texto)}>
             </TextInput>
             <View style={{flexDirection:'row', justifyContent:'right'}}>
                 <TouchableOpacity onPress={() => {navigation.goBack()}}>
                     <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Cancel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {navigation.goBack(), alert("Voce completou seu cadastro")}}>
+                <TouchableOpacity onPress={() => {handlerSave()}}>
                     <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Ok</Text>
                 </TouchableOpacity>
             </View>
