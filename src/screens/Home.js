@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
-import {TarefaItem} from '../componentes/TarefaItem';
 import { getData } from '../storage/async-storage';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import TarefaItem from '../components/TarefaItem';
 
 export default function Home(){
 
@@ -32,7 +32,7 @@ export default function Home(){
                 {
                     tasks != null && tasks.map((item) => {
                         return(
-                            <TarefaItem 
+                            <TarefaItem
                                 nome={item.nome}
                                 status={item.status}
                                 data={item.data}

@@ -13,21 +13,27 @@ export default function NovaTarefa() {
     const [categoria, setCategoria] = useState('prova');
     const [descricao, setDesc] = useState('');
     const [data, setData] = useState('');
-    
 
-    const handlerSave = () => {
+    const handlerSave = async () => {
         const tarefa = {
             nome: nome,
             categoria: categoria,
             data: data,
             descricao: descricao
+        };
+
+        if (nome == '') {
+            alert('campo nome não preenchido')
         }
-    
-        addData(tarefa)
-        navigation.goBack() 
-        alert("Voce completou seu cadastro")
+        else if () {
+
+        }
+        else {
+            await addData(tarefa)
+            alert("Voce completou seu cadastro")
+            navigation.goBack('Home')
+        }
     }
-    
 
     return (
         <View>
