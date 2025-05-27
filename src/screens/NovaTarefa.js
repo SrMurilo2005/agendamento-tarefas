@@ -1,11 +1,47 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { Picker } from '@react-native-picker/picker';
+import MaskInput from "react-native-mask-input";
 import { useNavigation } from '@react-navigation/native';
+import { useState } from "react";
+import { addData } from "../storage/async-storage";
 
 
 export default function NovaTarefa() {
 
     const navigation = useNavigation();
+
+    const [nome, setNome] = useState('');
+    const [categoria, setCategoria] = useState('prova');
+    const [descricao, setDesc] = useState('');
+    const [data, setData] = useState('');
+
+    const handlerSave = async () => {
+        const tarefa = {
+            nome: nome,
+            categoria: categoria,
+            data: data,
+            descricao: descricao,
+            status: "a fazer"
+        };
+
+        if (nome.trim() == '') {
+            alert('campo nome não preenchido')
+        }
+        else if (descricao.trim() == '') {
+            alert("Campo descrição não válido.")
+        }
+        else if (data.trim() == '') {
+            alert("Campo data não válido.")
+        }
+        else if (categoria.trim() == '') {
+            alert("Campo categoria não válido.")
+        }
+        else {
+            await addData(tarefa)
+            alert("Voce completou seu cadastro")
+            navigation.navigate('Home')
+        }
+    }
 
     return (
         <View>
@@ -23,13 +59,16 @@ export default function NovaTarefa() {
                 Nome da Tarefa:
             </Text>
             <TextInput
-                style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}>
+                style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}
+                value = {nome}
+                onChangeText= {texto => setNome(texto)}>   
             </TextInput>
             <Text style={styles.categoriatarefa}> Categoria Tarefa: </Text>
             <Picker style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}>
                 <Picker.Item label="Estudo" value="estudo" />
-                <Picker.Item label="Trabalho" value="jtrabalho" />
+                <Picker.Item label="Trabalho" value="trabalho" />
                 <Picker.Item label="Reunião" value="reunião" />
+                <Picker.Item label="Tarefa" value="tarefa" />
             </Picker>
 
             <Text style={styles.destarefa}>
@@ -42,22 +81,27 @@ export default function NovaTarefa() {
                 style={{
                     borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 80, padding: 15, borderColor: 'gray',
                     alignItems: 'center', justifyContent: 'center'
-                }}>
+                }}
+                value = {descricao}
+                onChangeText= {texto => setDesc(texto)}>
             </TextInput>
             <Text style={{ marginTop: 15, marginLeft: 40, textAlign: 'left', color: 'purple' }}>
                 Date</Text>
-            <TextInput
-                placeholder='mm/dd/yyyy'
+            <MaskInput
+                placeholder='dd/mm/aaaa'
                 style={{
                     borderWidth: 2, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 40, padding: 13, marginLeft: 15,
                     alignItems: 'center', justifyContent: 'center', borderColor: 'purple'
-                }}>
-            </TextInput>
+                }}
+                value = {data}
+                onChangeText= {texto => setData(texto)}
+                mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}>
+            </MaskInput>
             <View style={{flexDirection:'row', justifyContent:'right'}}>
                 <TouchableOpacity onPress={() => {navigation.goBack()}}>
                     <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Cancel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {navigation.goBack(), alert("Voce completou seu cadastro")}}>
+                <TouchableOpacity onPress={() => {handlerSave()}}>
                     <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Ok</Text>
                 </TouchableOpacity>
             </View>
