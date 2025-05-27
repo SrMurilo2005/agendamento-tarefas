@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import MaskInput from "react-native-mask-input";
 import { useNavigation } from '@react-navigation/native';
@@ -44,7 +44,7 @@ export default function NovaTarefa() {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.cabecalho}>
 
                 <Text style={styles.texto}>
@@ -55,56 +55,58 @@ export default function NovaTarefa() {
                 </TouchableOpacity>
 
             </View>
-            <Text style={styles.nometarefa}>
-                Nome da Tarefa:
-            </Text>
-            <TextInput
-                style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}
-                value = {nome}
-                onChangeText= {texto => setNome(texto)}>   
-            </TextInput>
-            <Text style={styles.categoriatarefa}> Categoria Tarefa: </Text>
-            <Picker style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}>
-                <Picker.Item label="Estudo" value="estudo" />
-                <Picker.Item label="Trabalho" value="trabalho" />
-                <Picker.Item label="Reunião" value="reunião" />
-                <Picker.Item label="Tarefa" value="tarefa" />
-            </Picker>
+            <ScrollView>
+                <Text style={styles.nometarefa}>
+                    Nome da Tarefa:
+                </Text>
+                <TextInput
+                    style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}
+                    value = {nome}
+                    onChangeText= {texto => setNome(texto)}>   
+                </TextInput>
+                <Text style={styles.categoriatarefa}> Categoria Tarefa: </Text>
+                <Picker style={{ borderWidth: 1, fontSize: 12, backgroundColor: 'white', borderRadius: 5, borderColor: 'gray', height: 35 }}>
+                    <Picker.Item label="Estudo" value="estudo" />
+                    <Picker.Item label="Trabalho" value="trabalho" />
+                    <Picker.Item label="Reunião" value="reunião" />
+                    <Picker.Item label="Tarefa" value="tarefa" />
+                </Picker>
 
-            <Text style={styles.destarefa}>
-                Descrição da Tarefa:
-            </Text>
-            <TextInput
-                placeholder='Value'
-                multiline
-                numberOfLines={3}
-                style={{
-                    borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 80, padding: 15, borderColor: 'gray',
-                    alignItems: 'center', justifyContent: 'center'
-                }}
-                value = {descricao}
-                onChangeText= {texto => setDesc(texto)}>
-            </TextInput>
-            <Text style={{ marginTop: 15, marginLeft: 40, textAlign: 'left', color: 'purple' }}>
-                Date</Text>
-            <MaskInput
-                placeholder='dd/mm/aaaa'
-                style={{
-                    borderWidth: 2, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 40, padding: 13, marginLeft: 15,
-                    alignItems: 'center', justifyContent: 'center', borderColor: 'purple'
-                }}
-                value = {data}
-                onChangeText= {texto => setData(texto)}
-                mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}>
-            </MaskInput>
-            <View style={{flexDirection:'row', justifyContent:'right'}}>
-                <TouchableOpacity onPress={() => {navigation.goBack()}}>
-                    <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {handlerSave()}}>
-                    <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Ok</Text>
-                </TouchableOpacity>
-            </View>
+                <Text style={styles.destarefa}>
+                    Descrição da Tarefa:
+                </Text>
+                <TextInput
+                    placeholder='Value'
+                    multiline
+                    numberOfLines={3}
+                    style={{
+                        borderWidth: 1, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 80, padding: 15, borderColor: 'gray',
+                        alignItems: 'center', justifyContent: 'center'
+                    }}
+                    value = {descricao}
+                    onChangeText= {texto => setDesc(texto)}>
+                </TextInput>
+                <Text style={{ marginTop: 15, marginLeft: 40, textAlign: 'left', color: 'purple' }}>
+                    Date</Text>
+                <MaskInput
+                    placeholder='dd/mm/aaaa'
+                    style={{
+                        borderWidth: 2, fontSize: 14, backgroundColor: 'white', borderRadius: 5, height: 40, padding: 13, marginLeft: 15,
+                        alignItems: 'center', justifyContent: 'center', borderColor: 'purple'
+                    }}
+                    value = {data}
+                    onChangeText= {texto => setData(texto)}
+                    mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}>
+                </MaskInput>
+                <View style={{flexDirection:'row', justifyContent:'right'}}>
+                    <TouchableOpacity onPress={() => {navigation.goBack()}}>
+                        <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {handlerSave()}}>
+                        <Text style={{ marginRight: 20, padding: 13, textAlign: 'right', color: 'purple', justifyContent: 'right'}}>Ok</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </View>
     )
 }
@@ -150,4 +152,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginLeft: 4.5,
     },
+    container: {
+        flex: 1
+    }
 })
