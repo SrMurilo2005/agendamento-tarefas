@@ -10,6 +10,12 @@ export default function Home(){
 
     const [ tasks, setTasks ] = useState(null)
 
+    const loadData = async () => {
+        const data = await getData();
+        setTasks(data);
+        setIsLoaded(!isLoaded)
+    }
+
     // Executa ao carregar a pagina
     useEffect(async () => {
         const data = await getData();
