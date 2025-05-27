@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet,TouchableOpacity,} from 'react-native';
 
 export default function TarefaItem(props) {
 
@@ -10,6 +10,7 @@ export default function TarefaItem(props) {
 
     return (
         <View style={styles.container}>
+            <TouchableOpacity tyle={{fontSize: 20, position: 'absolute', left:'20%'}}>X</TouchableOpacity>
             <View style= {styles.status}>
                 <Text style={styles.titulo}>{props.nome}</Text>
                 <Text style={{...styles.titulo1, backgroundColor: statusColor}}>{props.status}</Text>
