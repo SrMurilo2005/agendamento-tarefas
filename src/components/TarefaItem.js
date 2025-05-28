@@ -1,4 +1,6 @@
 import {View, Text, StyleSheet,TouchableOpacity,} from 'react-native';
+import Ionicons from '@expo/vector-icons/FontAwesome6';
+import { removeData } from '../storage/async-storage';
 
 export default function TarefaItem(props) {
 
@@ -8,9 +10,15 @@ export default function TarefaItem(props) {
         statusColor = 'green';
     }
 
+    const handleDelete= async () => {
+        await removeData(props.task)
+    }
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity tyle={{fontSize: 20, position: 'absolute', left:'20%'}}>X</TouchableOpacity>
+            <TouchableOpacity onPress={() => handleDelete()} style={{fontSize: 20, position: 'absolute', right: 20, bottom: 35}}>
+                <Ionicons name="delete-left" size={25} color="red" />
+            </TouchableOpacity>
             <View style= {styles.status}>
                 <Text style={styles.titulo}>{props.nome}</Text>
                 <Text style={{...styles.titulo1, backgroundColor: statusColor}}>{props.status}</Text>

@@ -3,12 +3,15 @@ import { getData } from '../storage/async-storage';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import TarefaItem from '../components/TarefaItem';
+import Ionicons from '@expo/vector-icons/FontAwesome6';
+
 
 export default function Home(){
 
     const navigation = useNavigation()
 
     const [ tasks, setTasks ] = useState(null)
+    const [ isLoaded, setIsLoaded ] = useState(true)
 
     const loadData = async () => {
         const data = await getData();
@@ -17,10 +20,11 @@ export default function Home(){
     }
 
     // Executa ao carregar a pagina
-    useEffect(async () => {
-        const data = await getData();
-        setTasks(data);
-    }, []);
+    useEffect(() => {
+        if (isLoaded) {
+            loadData();
+        }
+    }, [isLoaded]);
 
     return (
         <View style={styles.container}>
@@ -30,27 +34,29 @@ export default function Home(){
                 <Text style={styles.texto}>
                     ABRIL / 2025
                 </Text>
-                <TouchableOpacity style={styles.icone} onPress={() => {alert ("abriu configuração")}}>
-                    <Text style={styles.engrenagem}>⚙️</Text>
+                <TouchableOpacity style={styles.icone}
+                onPress={() => { alert("abriu configuração")}}>
+                <Ionicons name="gear" size={37.3} color="black" />
                 </TouchableOpacity>
             </View>
             <ScrollView style={styles.body}>
                 {
-                    tasks != null && tasks.map((item) => {
+                    tasks != null && tasks.map((item, index) => {
                         return(
                             <TarefaItem
+                                key={index}
                                 nome={item.nome}
                                 status={item.status}
                                 data={item.data}
                                 categoria={item.categoria}
+                                task={item}
                             />
                         )
                     })
                 }            
             </ScrollView>
             <TouchableOpacity style={styles.botao} onPress={() => {navigation.navigate("NovaTarefa")}}>
-                
-                <Text style={styles.emoji}>+</Text>
+            <Ionicons name="add" size={43.2} color="white" />
             </TouchableOpacity>
      </View>   
     );
@@ -72,13 +78,6 @@ const styles = StyleSheet.create({
         bottom: 13,
         right: 10,
     },
-    emoji : {
-        fontSize: 40,
-        textAlign: 'center',
-        color: 'white',
-        fontWeight: 'bold',
-        marginTop: -12
-    },
     
     cabecalho: {
         backgroundColor: 'blue',
@@ -96,9 +95,9 @@ const styles = StyleSheet.create({
     },    
     icone: {
         backgroundColor: 'gray',
-        width: 30,
-        height: 30,
-        borderRadius: 20,
+        width: 38,
+        height: 39,
+        borderRadius: 30,
         position: 'absolute',
         right: 15
     },  

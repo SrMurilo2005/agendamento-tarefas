@@ -4,6 +4,7 @@ import MaskInput from "react-native-mask-input";
 import { useNavigation } from '@react-navigation/native';
 import { useState } from "react";
 import { addData } from "../storage/async-storage";
+import Ionicons from '@expo/vector-icons/FontAwesome6';
 
 
 export default function NovaTarefa() {
@@ -50,8 +51,9 @@ export default function NovaTarefa() {
                 <Text style={styles.texto}>
                     Adicionar Tarefa
                 </Text>
-                <TouchableOpacity style={styles.icone} onPress={() => { alert("abriu configuração") }}>
-                    <Text style={styles.engrenagem}>⚙️</Text>
+                <TouchableOpacity style={styles.icone}
+                onPress={() => { alert("abriu configuração")}}>
+                    <Ionicons name="gear" size={37.5} color="black" />
                 </TouchableOpacity>
 
             </View>
@@ -127,9 +129,9 @@ const styles = StyleSheet.create({
     },
     icone: {
         backgroundColor: 'gray',
-        width: 30,
-        height: 30,
-        borderRadius: 20,
+        width: 38,
+        height: 39,
+        borderRadius: 30,
         position: 'absolute',
         right: 15
     },
