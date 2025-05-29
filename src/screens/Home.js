@@ -50,6 +50,7 @@ export default function Home(){
                                 data={item.data}
                                 categoria={item.categoria}
                                 task={item}
+                                setIsLoaded={setIsLoaded}
                             />
                         )
                     })

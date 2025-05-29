@@ -2,12 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 
 import { Picker } from '@react-native-picker/picker';
 import MaskInput from "react-native-mask-input";
 import { useNavigation } from '@react-navigation/native';
-import { useState } from "react";
-import { addData } from "../storage/async-storage";
+import { useEffect, useState } from "react";
+import { addData, updateData } from "../storage/async-storage";
 import Ionicons from '@expo/vector-icons/FontAwesome6';
 
 
-export default function NovaTarefa() {
+export default function NovaTarefa(props) {
+
+    const task = props.route.params
 
     const navigation = useNavigation();
 
@@ -16,13 +18,23 @@ export default function NovaTarefa() {
     const [descricao, setDesc] = useState('');
     const [data, setData] = useState('');
 
+    useEffect(() => {
+        if (task != undefined){
+            setNome(task.nome)
+            setCategoria(task.categoria)
+            setDesc(task.descricao)
+            setData(task.data)
+        }
+    }, [task])
+
     const handlerSave = async () => {
         const tarefa = {
             nome: nome,
             categoria: categoria,
             data: data,
             descricao: descricao,
-            status: "a fazer"
+            status: "a fazer",
+            id: task?.id
         };
 
         if (nome.trim() == '') {
@@ -38,9 +50,16 @@ export default function NovaTarefa() {
             alert("Campo categoria não válido.")
         }
         else {
-            await addData(tarefa)
-            alert("Voce completou seu cadastro")
-            navigation.navigate('Home')
+            if (task != undefined) {
+                await updateData (tarefa)
+                alert("Tarefa atualizado!")
+                
+            }
+            else {
+                await addData(tarefa)
+            alert("Voce completou nova seu tarefa!")
+            }
+            navigation.navigate('Home')            
         }
     }
 
@@ -48,9 +67,7 @@ export default function NovaTarefa() {
         <View style={styles.container}>
             <View style={styles.cabecalho}>
 
-                <Text style={styles.texto}>
-                    Adicionar Tarefa
-                </Text>
+                <Text style={styles.texto}>{task ? 'Editar' : 'Adicionar'} Tarefa </Text>
                 <TouchableOpacity style={styles.icone}
                 onPress={() => { alert("abriu configuração")}}>
                     <Ionicons name="gear" size={37.5} color="black" />

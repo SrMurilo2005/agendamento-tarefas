@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet,TouchableOpacity,} from 'react-native';
 import Ionicons from '@expo/vector-icons/FontAwesome6';
 import { removeData } from '../storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 export default function TarefaItem(props) {
 
@@ -12,10 +13,17 @@ export default function TarefaItem(props) {
 
     const handleDelete= async () => {
         await removeData(props.task)
+        props.setIsLoaded(true)
     }
 
+    const navigation = useNavigation()
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity 
+            style={styles.container}
+            onPress={() => {
+                navigation.navigate('NovaTarefa', props.task)
+            }}>
             <TouchableOpacity onPress={() => handleDelete()} style={{fontSize: 20, position: 'absolute', right: 20, bottom: 35}}>
                 <Ionicons name="delete-left" size={25} color="red" />
             </TouchableOpacity>
@@ -27,7 +35,7 @@ export default function TarefaItem(props) {
             <Text style={styles.categoria}>categoria - {props.categoria}</Text>
             
             
-        </View>
+        </TouchableOpacity>
         
     )
 }
